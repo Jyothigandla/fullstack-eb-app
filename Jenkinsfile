@@ -5,8 +5,8 @@ pipeline {
 
         stage('Clone') {
             steps {
-                  git branch: 'main',
-                  url: 'https://github.com/jyothigandla/fullstack-eb-app.git'
+                git branch: 'main',
+                url: 'https://github.com/jyothigandla/fullstack-eb-app.git'
             }
         }
 
@@ -30,8 +30,7 @@ pipeline {
         stage('Deploy to Elastic Beanstalk') {
             steps {
                 sh '''
-                source myenv/bin/activate
-                eb deploy
+                /home/ubuntu/myenv/bin/eb deploy
                 '''
             }
         }
