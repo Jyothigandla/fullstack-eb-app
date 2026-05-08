@@ -1,0 +1,4 @@
+Dockerrun.aws.json
+*.zip
+node_modules
+.git

@@ -1,14 +1,41 @@
 const express = require('express');
-const cors = require('cors');
+const mysql = require('mysql2');
 
 const app = express();
 
-app.use(cors());
-
-app.get('/', (req, res) => {
-    res.send('Backend Running 🚀');
+const db = mysql.createConnection({
+  host: 'fullstack-db.cmfckic8q29y.us-east-1.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Gjyothi123',
+  database: 'fullstackdb'
 });
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
+db.connect((err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Connected to RDS MySQL');
+  }
+});
+
+app.get('/', (req, res) => {
+  res.send('Backend Running 🚀');
+});
+
+app.get('/api', (req, res) => {
+  res.send('Backend API Running 🚀');
+});
+
+app.listen(5000, '0.0.0.0', () => {
+  console.log('Server running on port 5000');
+});
+
+app.get('/db', (req, res) => {
+  db.query('SHOW DATABASES', (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(result);
+    }
+  });
 });

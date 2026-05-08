@@ -9,15 +9,29 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
+        stage('Build Frontend') {
             steps {
-                sh 'docker-compose build'
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
             }
         }
 
-        stage('Deploy') {
+        stage('Build Backend') {
             steps {
-                sh 'eb deploy'
+                dir('backend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Deploy to Elastic Beanstalk') {
+            steps {
+                sh '''
+                source myenv/bin/activate
+                eb deploy
+                '''
             }
         }
     }
