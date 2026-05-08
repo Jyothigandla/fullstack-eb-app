@@ -5,7 +5,8 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/jyothigandla/fullstack-eb-app.git'
+                  git branch: 'main',
+                  url: 'https://github.com/jyothigandla/fullstack-eb-app.git'
             }
         }
 
